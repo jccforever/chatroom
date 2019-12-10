@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">   
+    <title>彩票聊天室</title>
+    <meta name="keywords" content="竞彩聊天室、足球聊天室、篮球聊天室、彩票聊天室"/>
+    <meta name="description" content="聊天室"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible"content="IE=Edge,chrome=1">
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.qqty.com/Public/Home/images/icon/16X16.ico">
+    <link rel="stylesheet" href="__ROOM__/css/bootstrap.css">
+    <link rel="stylesheet" href="__ROOM__/css/reset.css">
+    <link rel="stylesheet" href="__ROOM__/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="__ROOM__/css/chatRoom/login.css">
+    <script type="text/javascript" src="__ROOM__/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="__ROOM__/layer/layer.js"></script>
+</head>
+
+<body>
+    <div class="login">
+        <div class="header">
+            <div class="switch" id="switch">
+            <a class="switch_btn switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">登&nbsp;录</a> 
+            <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">注&nbsp;册</a>
+                <div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 66px; left: 0px;"></div>
+            </div>
+        </div>
+        <div class="web_qr_login" id="web_qr_login"> 
+            <!--登录-->
+            <div class="web_login" id="web_login">
+                <div class="login-box">
+                    <div class="login_form">
+                        <form action="{:url('/user/login')}" method="post" enctype="application/x-www-form-urlencoded" id="login_form" onSubmit="return validates()" >
+                            {:token()}
+                            <div class="uinArea clearfix" id="uinArea">
+                            	<span class="input-tips username" for="username"></span>
+                                <div class="inputOuter" id="uArea">
+                                    <input type="text" id="username" name="username" class="inputstyle" placeholder="帐号"/>
+                                </div>
+                            </div>
+                            <div class="pwdArea clearfix" id="pwdArea"> 
+                            	<span class="input-tips password" for="password"></span>
+                                <div class="inputOuter" id="pArea">
+                                    <input type="password" id="password" name="password" class="inputstyle" placeholder="密码"/>
+                                </div>
+                            </div>
+                            <div class="control-password clearfix">
+                                <label><input name="remember" id="remember" value="1" type="checkbox">&nbsp;15天内自动登录</label>
+                                <a href="{:tencent_qq($qq['qq'])}" title="去找回密码">忘记密码?</a> 
+                            </div>
+                            <div  class="button-container">
+                                <input type="submit" value="立即登录"  class="button_blue button_login"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--登录end--> 
+        </div>
+        <!--注册--> 
+        <div class="qlogin" id="qlogin" style="display: none;">
+            <div class="web_login">
+                <div class="login_form">
+                    <form action="{:url('/user/register')}" method="post" enctype="application/x-www-form-urlencoded" id="regUser">
+                        {:token()}
+                        <div class="uinArea clearfix" id="uinArea"> 
+                        	<span class="input-tips username" for="user"></span>
+                            <div class="inputOuter2" id="uArea">
+                                <input type="text" id="user" name="user" class="inputstyle" maxlength="15" placeholder="帐号3-15位字符">
+                            </div>
+                        </div>
+                        <div class="regArea clearfix"> 
+                        	<span class="input-tips password" for="pass"></span>
+                            <div class="inputOuter2">
+                                <input type="password" id="pass" name="pass" class="inputstyle" maxlength="20" placeholder="密码">
+                            </div>
+                        </div>
+                        <div class="regArea clearfix"> 
+                        	<span class="input-tips qq" for="qq"></span>
+                            <div class="inputOuter2">
+                                <input type="text" id="qq" name="qq" class="inputstyle" maxlength="16" placeholder="QQ号码">
+                            </div>
+                        </div>
+                        <div class="regArea clearfix"> 
+                        	<span class="input-tips phone" for="phone"></span>
+                            <div class="inputOuter2">
+                                <input type="text" id="phone" name="phone" class="inputstyle" maxlength="16" placeholder="手机">
+                            </div>
+                        </div>
+                        <div class="regArea clearfix" > 
+                        	<span class="input-tips captcha" for="captcha"></span>
+                            <div class="inputOuter2"> <img id="captcha-img" title="点击更新" src="{:url('/user/captcha')}" onClick="this.src='{:url('/user/captcha')}?'+Math.random()" alt="看不清，点击刷新">
+                                <input type="text" id="captcha" name="captcha" class="inputstyle" maxlength="4" placeholder="输入右侧数字">
+                            </div>
+                        </div>
+                        <div id="userCue" class="common-error-msg-container"></div>
+                        <div class="button-container">
+                            <input type="button" id="reg" class="button_blue button_reg" value="免费注册"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--注册end-->
+        <div class="logFooter"> </div>
+    </div>
+<script>
+$(function(){
+	//登录切换
+	$('#switch_qlogin').click(function(){
+		$('#switch_login').removeClass("switch_btn_focus").addClass('switch_btn');
+		$('#switch_qlogin').removeClass("switch_btn").addClass('switch_btn_focus');
+		$('#switch_bottom').animate({left:'0px',width:'66px'});
+		$('#qlogin').css('display','none');
+		$('#web_qr_login').css('display','block');
+		try{
+			parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
+		}catch(e){}
+	});
+    //注册切换
+	$('#switch_login').click(function(){
+		$('#switch_login').removeClass("switch_btn").addClass('switch_btn_focus');
+		$('#switch_qlogin').removeClass("switch_btn_focus").addClass('switch_btn');
+		$('#switch_bottom').animate({left:'152px',width:'66px'});
+		$('#qlogin').css('display','block');
+		$('#web_qr_login').css('display','none');
+		try{
+			parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
+		}catch(e){}
+	});
+	if(getParam("a")=='0')
+	{
+		$('#switch_login').trigger('click');
+	}
+});
+	
+//根据参数名获得该参数 pname等于想要的参数名 
+function getParam(pname) { 
+    var params = location.search.substr(1); // 获取参数 平且去掉？ 
+    var ArrParam = params.split('&'); 
+    if (ArrParam.length == 1) { 
+        //只有一个参数的情况 
+        return params.split('=')[1]; 
+    } 
+    else { 
+         //多个参数参数的情况 
+        for (var i = 0; i < ArrParam.length; i++) { 
+            if (ArrParam[i].split('=')[0] == pname) { 
+                return ArrParam[i].split('=')[1]; 
+            } 
+        } 
+    } 
+}  
+function checkusername(username) {
+    username = $.trim(username);
+    if(username==''){
+        layer.msg('帐号不能为空！',{shift: 6});
+        $("#username").focus();
+        return false;   
+    }
+    return true;
+}
+function checkpassword(pw)
+{
+    pw = $.trim(pw);
+    if(pw==''){
+        layer.msg('密码不能为空！',{shift: 6});
+        $("#password").focus();
+        return false;
+    }
+    return true;
+}
+
+function validates()
+{
+    if(!checkusername($("#username").val()))return false;
+    if(!checkpassword($("#password").val()))return false;
+}
+
+//检查帐号
+$("#user").blur(function(){
+    var username = $.trim($("#user").val());
+    if(username == ''){
+        return false;
+    }
+    $.ajax({
+        type: "GET",
+        url: '/user/regcheck',
+        data: "username=" + username + '&temp=' + new Date(),
+        dataType: 'json',
+        success: function(result) {
+            if (result.code != 1) {
+                userCue('user',result.msg);
+            } else {
+                userCue('user');
+            }
+        }
+    });
+});
+
+//提示
+function userCue(name,msg=''){
+    if(msg == ''){
+        $('#'+name).css({
+            border: "1px solid #D7D7D7",
+            boxShadow: "none"
+        });
+        $("#userCue").html(" ");
+    }else{
+        $('#'+name).focus().css({
+            border: "1px solid red",
+            boxShadow: "0 0 2px red"
+        });
+        $('#userCue').html("<font color='red'><b>"+msg+"</b></font>");
+    }
+}
+
+//检查密码
+$("#pass").blur(function(){
+    var pass = $.trim($("#pass").val());
+    if(pass == ''){
+        return false;
+    }
+    var u = /[\'.,:;*?~`!@#$%^&+=)(<>{}]|\]|\[|\/|\\\|\"|\|/;
+    if(u.test(pass)){
+        userCue('pass','×密码中不能包含特殊字符');
+        return false;  
+    }
+    var passlength = $('#pass').val().length
+    if (passlength < 6 || passlength > 20) {
+            userCue('pass','×密码为6-20位字符');
+        return false;
+    }else {
+        userCue('pass');
+    }
+});
+
+//提交注册
+$('#reg').click(function() {
+    if ($.trim($('#user').val()) == "") {
+        userCue('user','×帐号不能为空');
+        return false;
+    }
+    var u = /[\'.,:;*?~`!@#$%^&+=)(<>{}]|\]|\[|\/|\\\|\"|\|/;
+    if(u.test($('#user').val())){
+        userCue('user','×帐号中不能包含特殊字符');
+        return false;  
+    }
+    if ($('#user').val().length < 3 || $('#user').val().length > 15) {
+        userCue('user','×帐号为3-15字符');
+        return false;
+    }
+    if ($.trim($('#pass').val()) == "") {
+        userCue('pass','×密码不能为空');
+        return false;
+    }
+    var passlength = $('#pass').val().length
+    if (passlength < 6 || passlength > 20) {
+        userCue('pass','×密码为6-20位字符');
+        return false;
+    }
+
+    var qq = $.trim($("#qq").val());
+    if(qq != ''){
+        if (!/^\d{5,}$/.test(qq)){
+            userCue('qq','×QQ号码格式不正确');
+            return false;
+        }else{
+            userCue('qq');
+        }
+    }
+
+    var phone = $.trim($('#phone').val());
+    if(phone != ''){
+        if (!/^1[34578]{1}\d{9}$/.test(phone)){
+            userCue('phone','×手机号码格式不正确');
+            return false;
+        }else{
+            userCue('phone');
+        }
+    }
+
+    if ($.trim($('#captcha').val()) == "") {
+        userCue('captcha','×验证码不能为空');
+        return false;
+    }else{
+        userCue('captcha');
+    }
+    var isTrue = $.trim($('#userCue').text());
+
+    if(isTrue != ''){
+        $('#userCue').html("<font color='red'><b>"+isTrue+"</b></font>");
+        return false;
+    }else{
+        userCue('captcha','正在注册中...');    
+        $('#regUser').submit();
+    }
+    
+});
+</script>
+</body>
+</html>

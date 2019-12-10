@@ -1,0 +1,56 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-room" class="control-label col-xs-12 col-sm-2">{:__('选择房间')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-room" data-rule="required" class="form-control selectpicker" name="row[room_id]" onchange="sendRoom(this)">
+                {foreach name="room" item="vo"}
+                    <option data-type="" value="{$vo.roomnumber}" >{$vo.name}</option>
+                {/foreach}
+            </select>
+            <input id="c-room_name" class="form-control" name="row[room_name]" type="hidden">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-mode" class="control-label col-xs-12 col-sm-2">{:__('模块标识')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mode" class="form-control" name="row[mode]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-name" class="control-label col-xs-12 col-sm-2">{:__('模块名')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" data-rule="required"  name="row[name]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-url" class="control-label col-xs-12 col-sm-2">{:__('地址')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-url" class="form-control" data-rule="required"  name="row[url]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-create_time" class="control-label col-xs-12 col-sm-2">{:__('创建时间')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-create_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[create_time]" type="text" value="{:date('Y-m-d H:i:s')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-weigh" class="control-label col-xs-12 col-sm-2">{:__('排序')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-weigh" class="form-control" name="row[weigh]" type="text">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<script>
+    function sendRoom(e){
+        document.getElementById("c-room_name").value= e.options[e.selectedIndex].text;
+    }
+</script>

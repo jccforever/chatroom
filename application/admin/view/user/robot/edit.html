@@ -1,0 +1,78 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label for="c-nickname" class="control-label col-xs-12 col-sm-2">{:__('Nickname')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-nickname" data-rule="required" class="form-control" name="row[nickname]" type="text" value="{$row.nickname}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-avatar" class="control-label col-xs-12 col-sm-2">{:__('Avatar')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-avatar" class="form-control" size="50" name="row[avatar]" type="text" value="{$row.avatar}">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="plupload-avatar" class="btn btn-danger plupload" data-dir='avatar' data-input-id="c-avatar" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-avatar"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-avatar" class="btn btn-primary fachoose" data-input-id="c-avatar" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-avatar"></span>
+            </div>
+            <ul class="row list-inline plupload-preview" id="p-avatar"></ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-room_id" class="control-label col-xs-12 col-sm-2">所属房间:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_select('row[room_id]', $chatroom, $row['room_id'], ['class'=>'form-control selectpicker', 'required'=>''])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-group_id" class="control-label col-xs-12 col-sm-2">用户组:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_select('row[group_id]', $user_group, $row['group_id'], ['class'=>'form-control selectpicker', 'required'=>''])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-up_week" class="control-label col-xs-12 col-sm-2">{:__('Up_week')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_checkboxs('row[up_week][]', [1=>'周一',2=>"周二",3=>'周三',4=>'周四',5=>'周五',6=>'周六',7=>'周日'], $row['up_week']);}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-up_time" class="control-label col-xs-12 col-sm-2">{:__('Up_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-up_time" class="form-control datetimepicker" data-date-format="HH:mm:ss" data-use-current="true" name="row[up_time]" type="text" value="{$row.up_time}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-down_time" class="control-label col-xs-12 col-sm-2">{:__('Down_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-down_time" class="form-control datetimepicker" data-date-format="HH:mm:ss" data-use-current="true" name="row[down_time]" type="text" value="{$row.down_time}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-qq" class="control-label col-xs-12 col-sm-2">{:__('QQ')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-qq" data-rule="" class="form-control" name="row[qq]" type="text" value="{$row.qq}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-mobile" class="control-label col-xs-12 col-sm-2">{:__('Mobile')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mobile" data-rule="" class="form-control" name="row[mobile]" type="text" value="{$row.mobile}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="status" class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[status]', ['normal'=>__('Normal'), 'hidden'=>__('黑名单')], $row['status'])}
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

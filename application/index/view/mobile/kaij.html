@@ -1,0 +1,62 @@
+{extend name="mobile:mobile" /}
+{block}{$header}{/block}
+{block name="wrap"}
+<div class="wrap">
+    <div class="main">
+        <!-- tab nav -->
+        <div class="chatNav">
+            <ul class="clearfix">
+                <li><a href="/room/{$curRoom.code}/selected/1" class="active">聊天室</a></li>
+                <li><a href="/room/{$curRoom.code}/selected/2">开奖号码</a></li>
+                <li><a href="javascript:;" class="liveBtn active">看直播</a></li>
+            </ul>
+        </div>
+        <!-- tab nav -->
+
+        <!-- lotCon -->
+        <div class="lotCon">
+            <div class="lotList">
+                <table class="table table-bordered" cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr bgcolor="#f2f2f2" class="fs26">
+                        <th width="20%">期数</th>
+                        <th width="20%">时间</th>
+                        <th width="60%" class="tabSpan">
+                            {if $curRoom['code'] != 'pk10' && $curRoom['code'] != 'xyft'}
+                            开奖号码
+                            {else /}
+                            <span class="on">号码</span>
+                            <span>大小</span>
+                            <span>单双</span>
+                            <span>对子</span>
+                            {/if}
+                        </th>
+                    </tr>
+                    </thead >
+                    <tbody id="lotHistory">
+                        <tr bgcolor="#fff">
+                            <td class="text-666 fs26">647172</td>
+                            <td class="text-666 fs26">19:02</td>
+                            <td class="text-fff fs26 numSpan">
+                                <span class="num-1">1222</span>
+                                <span class="num-2">2</span>
+                                <span class="num-3">3</span>
+                                <span class="num-4">4</span>
+                                <span class="num-5">5</span>
+                                <span class="num-6">6</span>
+                                <span class="num-7">7</span>
+                                <span class="num-8">8</span>
+                                <span class="num-9">9</span>
+                                <span class="num-10">10</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- lotCon -->
+    </div>
+</div>
+<script type="text/javascript" src="__ROOM__/js/mChatRoom/lottery-record.js"></script>
+{/block}
+{block}{$footer}{/block}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>彩票聊天室</title>
+    <meta name="keywords" content="竞彩聊天室、足球聊天室、篮球聊天室、彩票聊天室"/>
+    <meta name="description" content="聊天室"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible"content="IE=Edge,chrome=1">
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <link rel="stylesheet" href="__ROOM__/css/bootstrap.css">
+    <link rel="stylesheet" href="__ROOM__/css/reset.css">
+    <link rel="stylesheet" href="__ROOM__/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="__ROOM__/css/chatRoom/my-data.css">
+</head>
+
+<body>
+    <!-- my data -->
+    <div class="main">
+        <div class="boxShadow layerInfor">
+            <div class="layerHead">
+                <div class="layerFace"><img src="{$user.avatar}" width="64" height="64"></div>
+                <div class="layerName"><span class="faceName">{$user.nickname}</span> <span class="pull-right faceRank"><img src="{:get_user_group($user['group_id'])['img']}" border="0" width="18" height="18" class="mCS_img_loaded"></span></div>
+                <!--<a href="{:url('/user/avatar')}" class="fileImgBtn"></a>-->
+            </div>
+            <div class="tabNav">
+                <ul class="clearfix tabNavUl">
+                    <li class="pull-left on"><!--<a href="javascript:;"><strong>我的资料</strong></a>--></li>
+                    <!--<li class="pull-left"><a href="javascript:;" id="updatePass"><strong>修改密码</strong></a></li>-->
+                </ul>
+            </div>
+            <div class="tabCon">
+            	<!-- tab1 -->
+            	<div class="tab">
+                    <div class="layerBody">
+                        <ul>
+                            <li class="inforLi clearfix"><span class="pull-left">用户昵称：</span> <em class="pull-left" style="color:#ffa800;">{$user.nickname}</em></li>
+                            <li class="inforLi clearfix"><span class="pull-left">手机号码：</span> <em class="pull-left" style="color:#ffa800;">{$user.mobile}</em></li>
+                            <li class="inforLi clearfix"><span class="pull-left">我的身份：</span> <em class="pull-left" style="color:#ffa800;">{$user.group_name}</em></li>
+                            <li class="inforLi clearfix"><span class="pull-left">登陆次数：</span> <em class="pull-left" style="color:#ffa800;">{$user.loginnum}次</em></li>
+                        </ul>
+                    </div>
+                    <div class="layerFooter">
+                        <!--<a href="javascript:close();" class="btn btn-default bdRaduis">取消</a>-->
+                        <!--<button type="submit" class="btn btn-blue bdRaduis">保存</button>-->
+                    </div>
+                </div>
+            	<!-- tab1 -->
+            	<!-- tab2 -->
+            	<!--<div class="tab" style="display:none">-->
+                    <!--<form action="{:url('/user/repass')}" method="post" enctype="application/x-www-form-urlencoded" id="pass_form" onSubmit="return validatesPass()" >-->
+                    <!--{:token()}-->
+                        <!--<div class="layerBody">-->
+                            <!--<ul style="padding: 20px 0;">-->
+                                <!--<li class="inforLi clearfix"><span class="pull-left">原密码：</span> <em class="pull-left inputEm"><input type="password" id="oldpass" name="oldpass" placeholder="请输入您的原密码"></em></li>-->
+                                <!--<li class="inforLi clearfix"><span class="pull-left">新密码：</span> <em class="pull-left inputEm"><input type="password" name="password" placeholder="请输入新密码"></em></li>-->
+                                <!--<li class="inforLi clearfix"><span class="pull-left">确认密码：</span> <em class="pull-left inputEm"><input type="password" name="repass" placeholder="请输入确认密码"></em></li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                        <!--<div class="layerFooter">-->
+                            <!--<a href="javascript:close();" class="btn btn-default bdRaduis">取消</a>-->
+                            <!--<button type="submit" class="btn btn-blue bdRaduis">保存</button>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+                <!-- tab2 -->
+            </div>
+        </div>
+    </div>
+	<!-- my data -->
+    <script type="text/javascript" src="__ROOM__/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="__ROOM__/layer/layer.js"></script>
+	<script>
+	//点击切换
+	$('.tabNavUl li a').on('click',function(){
+		$(this).parents('li').addClass('on');
+		$(this).parents('li').siblings().removeClass('on');
+		var tabNum = $(this).parents('li').index();
+		$('.tabCon .tab').eq(tabNum).show().siblings().hide();
+		if (self != top) {
+        　　//在iframe中;
+            var height = $(".main").height();
+            parent.$('.layui-layer-iframe,.layui-layer-iframe iframe').height(height);
+        }
+	})
+
+	//赋值高度给父亲
+    $(document).ready(function() {
+        if (self != top) {
+        　　//在iframe中;
+            var height = $(".main").height();
+            parent.$('.layui-layer-iframe,.layui-layer-iframe iframe').height(height);
+        }
+        if(getParam("a")=='0')
+        {
+            $('#updatePass').trigger('click');
+        }
+    });
+
+    //关闭窗口
+    function close(){
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        parent.layer.close(index); //再执行关闭  
+    }
+
+    //根据参数名获得该参数 pname等于想要的参数名 
+    function getParam(pname) {
+        var params = location.search.substr(1); // 获取参数 平且去掉？ 
+        var ArrParam = params.split('&');
+        if (ArrParam.length == 1) {
+            //只有一个参数的情况 
+            return params.split('=')[1];
+        }
+        else {
+             //多个参数参数的情况
+            for (var i = 0; i < ArrParam.length; i++) {
+                if (ArrParam[i].split('=')[0] == pname) {
+                    return ArrParam[i].split('=')[1];
+                }
+            }
+        }
+    }
+
+    //修改资料
+    function validatesUser(){
+        var nickname = $.trim($("input[name='nickname']").val());
+        var qq       = $.trim($("input[name='qq']").val());
+        var mobile   = $.trim($("input[name='mobile']").val());
+        if(nickname == ''){
+            layer.msg('昵称不能为空！',{shift: 6});
+            return false;
+        }
+        var u = /[\'.,:;*?~`!@#$%^&+=)(<>{}]|\]|\[|\/|\\\|\"|\|/;
+        if(u.test(nickname)){
+            layer.msg('帐号中不能包含特殊字符！',{shift: 6});
+            return false;
+        }
+        if (nickname.length < 2 || nickname.length > 15) {
+            layer.msg('昵称为2-15字符！',{shift: 6});
+            return false;
+        }
+
+        if(qq != ''){
+            if (!/^\d{5,}$/.test(qq)){
+                layer.msg('QQ号码格式不正确！',{shift: 6});
+                return false;
+            }
+        }
+
+        if(mobile != ''){
+            if (!/^1[34578]{1}\d{9}$/.test(mobile)){
+                layer.msg('手机号码格式不正确！',{shift: 6});
+                return false;
+            }
+        }
+    }
+
+    //检查原始密码
+    $("#oldpass").blur(function(){
+        var oldpass = $.trim($("#oldpass").val());
+        if(oldpass == ''){
+            return false;
+        }
+        if (oldpass.length < 6 || oldpass.length > 20) {
+            layer.msg('密码为6-20位字符！',{shift: 6});
+            return false;
+        }
+        $.ajax({
+            type: "GET",
+            url: '/user/checkPass',
+            data: "oldpass=" + oldpass + '&temp=' + new Date(),
+            dataType: 'json',
+            success: function(result) {
+                if (result.code != 1) {
+                    layer.msg(result.msg,{shift: 6});
+                }
+            }
+        });
+    });
+
+    //修改密码
+    function validatesPass(){
+        var oldpass  = $.trim($("input[name='oldpass']").val());
+        var password = $.trim($("input[name='password']").val());
+        var repass   = $.trim($("input[name='repass']").val());
+        if(oldpass == ''){
+            layer.msg('请输入原始密码！',{shift: 6});
+            return false;
+        }
+        if(password == ''){
+            layer.msg('请输入新密码！',{shift: 6});
+            return false;
+        }
+        var u = /[\'.,:;*?~`!@#$%^&+=)(<>{}]|\]|\[|\/|\\\|\"|\|/;
+        if(u.test(password)){
+            layer.msg('密码中不能包含特殊字符',{shift: 6});
+            return false;
+        }
+        if (password.length < 6 || password.length > 20) {
+            layer.msg('新密码为6-20位字符！',{shift: 6});
+            return false;
+        }
+        if(repass == ''){
+            layer.msg('请输入确认密码！',{shift: 6});
+            return false;
+        }
+        if(password != repass){
+            layer.msg('两次密码输入不一致！',{shift: 6});
+            return false;
+        }
+    }
+
+	function guize(){
+     var loadstr='<div style=" text-align:center;width:280px;height:100px;">'
+	+'<div style="color: red;font-size: 14px;padding-top: 16px;">在线10分钟，增加5积分'
+    +'</div></div>';
+	layer.open({
+		type: 1,
+		title: '积分规则',
+		shadeClose: true,
+        skin: 'layer-ext-nuoyun',
+		shade: false,
+		area: '280px',
+		content: loadstr //iframe的url
+		});
+	}
+    </script>
+</body>
+</html>

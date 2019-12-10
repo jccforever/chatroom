@@ -1,0 +1,71 @@
+<?php
+
+return array (
+  'name' => 'FastAdmin',
+  'beian' => '',
+  'cdnurl' => '',
+  'version' => '1.0.1',
+  'timezone' => 'Asia/Shanghai',
+  'languages' => 
+  array (
+    'backend' => 'zh-cn',
+    'frontend' => 'zh-cn',
+  ),
+  'fixedpage' => 'dashboard',
+  'categorytype' => 
+  array (
+    'page' => '文章',
+    'advert' => '广告',
+    'image' => '图片',
+  ),
+  'configgroup' => 
+  array (
+    'basic' => '基础配置',
+    'email' => '邮件配置',
+    'user' => '会员配置',
+    'backimg' => '图片配置',
+    'filter' => '屏蔽词配置',
+    'dictionary' => '字典配置',
+  ),
+  'mail_type' => '1',
+  'mail_smtp_host' => 'smtp.qq.com',
+  'mail_smtp_port' => '465',
+  'mail_smtp_user' => '10000',
+  'mail_smtp_pass' => 'password',
+  'mail_verify_type' => '2',
+  'mail_from' => '10000@qq.com',
+  'user_filter' => '管理员|qq|admin|a',
+  'say_filter' => '黑平台|刷单|私聊|打包|代理|群|手续费|套现|群|加群|返佣|黑公司|代客操盘|加微信|网址|微信|V信|威信|薇信|QQ|qq|加Q|\\+Q|电话|手机号|加我|\\+我|请加|请\\+|\\+V|\\+群|VX|加群|weixin|网址|计划群|加扣扣|\\+扣扣',
+  'user_score' => 
+  array (
+    1 => '20',
+    2 => '30',
+    3 => '50',
+    4 => '80',
+    5 => '90',
+    6 => '120',
+    7 => '150',
+  ),
+  'weblogo' => '/uploads/20171129/0edac8b420cca326789d3d37d54473c3.jpg',
+  'pcskin' => 
+  array (
+    0 => '/uploads/pcskin/517fc4e1e3fdeda6e539e7dabc285609.jpg',
+    1 => '/uploads/pcskin/eae180cc1d7a7d0e804db15d10ba6ea2.jpg',
+    2 => '/uploads/pcskin/8ab6419898dfe6354098d46e580c671b.jpg',
+    3 => '/uploads/pcskin/8f77dd88cd2fe4105b133c35d32f6d1e.jpg',
+    4 => '/uploads/pcskin/c5af5fada897be788ff60628a2af9253.jpg',
+    5 => '/uploads/pcskin/5d8c72c374c3a4e2e3714341c0b4e3af.jpg',
+    6 => '/uploads/pcskin/da9983a39349a3f7536fbaa01db667ce.jpg',
+    7 => '/uploads/pcskin/19cf3698e7b1a004929615f2dc7a2d0f.jpg',
+    8 => '/uploads/pcskin/228b6ad77bfc21353c6bd0e83130aca1.jpg',
+  ),
+  'h5skin' => 
+  array (
+    0 => '/uploads/h5skin/8db12891b8d5e5f1720193f3953881da.jpg',
+    1 => '/uploads/h5skin/228b6ad77bfc21353c6bd0e83130aca1.jpg',
+  ),
+  'upload-allow-list' => 
+  array (
+    0 => '',
+  ),
+);

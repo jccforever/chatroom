@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">   
+    <title>彩票聊天室</title>
+    <meta name="keywords" content="竞彩聊天室、足球聊天室、篮球聊天室、彩票聊天室"/>
+    <meta name="description" content="聊天室"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible"content="IE=Edge,chrome=1">
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <link rel="stylesheet" href="__ROOM__/css/bootstrap.css">
+    <link rel="stylesheet" href="__ROOM__/css/reset.css">
+    <link rel="stylesheet" href="__ROOM__/layer/theme/default/layer.css">
+</head>
+<style type="text/css">
+	.title{ background: #e8e8e8; padding: 10px;}
+	.title span{ color: #d81e06; background: url(/room/images/chatRoom/help-title-icon.png) no-repeat 0 center; font-size: 18px; padding-left: 30px;}
+	.helpText{ background: #fff; padding: 10px;}
+	.helpText dt{ color: #4d4d4d; position: relative; font-size: 16px; padding-left: 16px; margin-bottom: 10px; border-radius: 4px; cursor: pointer;}
+	.helpText dt.on{color: #e18f00;}
+	.helpText dt:after{ content: ""; width: 6px; height: 6px; border-radius: 50%; background: #4d4d4d; position: absolute; left: 0; top: 7px;}
+	.helpText dt.on:after{ background: #e18f00;}
+	.helpText dd{ color: #666666; background: #e8e8e8; font-size: 16px; padding: 10px; margin-bottom: 10px; border-radius: 4px; position: relative; display: none;}
+	.helpText dd:after{ content: ""; width: 0; height: 0; border-left: 10px solid transparent; border-bottom: 10px solid #e8e8e8; border-right: 10px solid transparent; position: absolute; left: 28px; top: -10px;}
+</style>
+<body>
+	<div class="main">
+    	<div class="title"><span>帮助中心</span></div>
+        <div class="helpText">
+            {volist name="news" id="vo"}
+            <dl>
+                <dt>{$vo.title}</dt>
+                <dd>{$vo.content}</dd>
+            </dl>
+            {/volist}
+        </div>
+    </div>
+    <script type="text/javascript" src="__ROOM__/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="__ROOM__/layer/layer.js"></script>
+    <script type="text/javascript">
+    	$(function(){
+			// if (self != top) { 
+			// 　　//在iframe中;
+			// 	var height = $(".main").height();
+			// 	parent.$('.layui-layer-iframe,.layui-layer-iframe iframe').height(height);
+			// }
+			$('.helpText dt').on('click',function(){
+				$(this).addClass('on').parents('dl').siblings().children('dt').removeClass('on');
+				$(this).siblings('dd').stop().slideDown(200).parents('dl').siblings().children('dd').stop().slideUp(200);
+			})
+		})	
+    </script>
+</body>
+
+</html>

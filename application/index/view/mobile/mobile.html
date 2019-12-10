@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+{block name="header"}
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>手机聊天室</title>
+    <meta content="telephone=no" name="format-detection">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="white" name="apple-mobile-web-app-status-bar-style">
+    <link rel="shortcut icon" type="image/x-icon" href="" />
+
+    <!-- jquery -->
+    <script type="text/javascript" src="__ROOM__/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="__ROOM__/js/jquery.actual.min.js"></script>
+    <!-- 自适应 计算html font-size -->
+    <script type="text/javascript" src="__ROOM__/js/htmlwidth.js"></script>
+     <!-- layer of css -->
+    <link rel="stylesheet" href="__ROOM__/layer/mChatRoom/need/layer.css">
+    <!-- 引入公共样式 -->
+    <link rel="stylesheet" type="text/css" href="__ROOM__/css/mChatRoom/base.css">
+    <!-- 本页需要引用的css -->
+    <link rel="stylesheet" href="__ROOM__/touchTouch/touchTouch.css">
+    <link rel="stylesheet" href="__ROOM__/css/mChatRoom/chat-room.css">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?450cdf250aae4e21d79186da7ff06cc6";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+{/block}
+<body style="background: #f0f0f0 url({if cookie('h5bg_image') eq ''}{$bg_default}{else/}{:cookie('h5bg_image')}{/if}) no-repeat 0 0; background-size: 100% 100%; background-attachment:fixed;">
+    {block name="wrap"}
+    {/block}
+
+    <!-- tab nav -->
+    <script>
+        var backimg     = "{$backimg}";
+        var userInfo    = JSON.parse('{:json_encode($user)}');
+        var visitor     = "{$visitor}";
+        var room_id     = "{$curRoom.code}";
+        var mqttOpt     = JSON.parse('{:json_encode($mqtt)}');
+        var ssoParams   = JSON.parse('{:json_encode($sso_params)}');
+        var feedParams  = JSON.parse('{:json_encode($feedParams)}');
+        var openchat    = {$new_user_openchat};
+        var historyUrl  = window.location.protocol == 'https:' ? 'https://mapi.a13355.com/api/' :'http://m.api.a13355.com/api/';
+        var useSSL      = window.location.protocol == 'https:' ? true : false;
+        var ssoPre      = "{$sso_pre}";
+        var userStatus  = JSON.parse('{:json_encode($userStatus)}');
+        var htt_surl  = "{$htt_surl}";
+        var url_pre  = "{$url_pre}";
+        var ua = window.navigator.userAgent;
+        if(ua.toLowerCase().indexOf("baidu") > 0 && useSSL == false){
+            window.location.href = htt_surl;
+        }
+        var time_open  = "{$time_open}";
+        var time_open_notice  = "{$time_open_notice}";
+        var clientIp  = "{$clientIp}";
+    </script>
+
+    {block name="footer"}
+    <script type="text/javascript" src="__ROOM__/js/cookie.js"></script>
+    <!--<script type="text/javascript" src="__ROOM__/js/paho-mqtt.js"></script>-->
+    <script type="text/javascript" src="__ROOM__/js/mqtt.min.js"></script>
+    <script type="text/javascript" src="__ROOM__/layer/mChatRoom/layer.js"></script>
+    <script type="text/javascript" src="__ROOM__/touchTouch/touchTouch.jquery.js"></script>
+    <script type="text/javascript" src="__ROOM__/js/mChatRoom/init.m.js"></script>
+    <script type="text/javascript" src="__ROOM__/js/mChatRoom/chat.js?v=1.83"></script>
+    {/block}
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>手机竞彩聊天室、足球聊天室、篮球聊天室、彩票聊天室</title>
+    <meta name="description" content="聊天室"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <link rel="stylesheet" type="text/css" href="__ROOM__/mobile/css/base.css">
+    <link rel="stylesheet" type="text/css" href="__ROOM__/mobile/css/chatroom/chat-room.css">
+    <script type="text/javascript" src="__ROOM__/js/htmlwidth.js"></script>
+</head>
+<body>
+<header class="chatHeader clearfix">
+        <span href="javacript:;" class="chatType fl text-fff">
+        	<em>{$roomName}</em>
+            <i><img src="__ROOM__/mobile/images/chatroom/triangle-down.png"></i>
+            <div class="chatTypeCon">
+            {volist name="room" id="vo"}
+                <a href="{:url('/mroom/'.$vo['roomnumber'])}" {if $vo['roomnumber'] eq $room_id}class="on"{/if}>{$vo.name}</a>
+                {/volist}
+            </div>
+        </span>
+    <div class="userBtn fr">
+        {if $user}
+        <div class="userLink clearfix">
+            <div class="fl userFace"><img src="{$user.avatar}"></div>
+            <span class="fl userName"> {$user.nickname} </span>
+            <div class="userJf">
+                <p>积分：{$user.score}</p>
+                <div class="myInfor"><a href="javascript:;">个人资料</a></div>
+                <a href="javascript:;" class="closeUser">退出登录</a>
+            </div>
+        </div>
+        {else/}
+        <a href="javascript:;" class="logBtn">登录</a>
+        <a href="javascript:;" class="regBtn">注册</a>
+        {/if}
+    </div>
+    <div class="onLine fr">在线12人</div>
+</header>
+
+<div class="wrap">
+    <div class="main">
+        <!-- tab nav -->
+        <div class="chatNav">
+            <ul class="clearfix">
+                <li><a href="javascript:;" class="active">聊天</a></li>
+                <li><a href="javascript:;">开奖</a></li>
+                <li><a href="javascript:;">比分</a></li>
+            </ul>
+        </div>
+        <!-- tab nav -->
+
+        <!-- inform -->
+        <div class="inform">
+            <div class="item01">
+                <div class=" item01In">
+                    <marquee scrollamount="3" id="msg_tip_show" behavior="scroll" loop="infinite">
+                        {volist name="gonggao" id="vo"}
+                        <nobr style="color:white;margin-right: 100px;">{$vo.content}</nobr>
+                        {/volist}
+                    </marquee>
+                </div>
+            </div>
+            <a href="{:tencent_qq($qq.0.qq)}" class="item02"><span>客服</span></a>
+            <a href="javascript:;" class="item03"><span>签到</span></a>
+            <div class="signDate">恭喜您！获得<span></span>积分
+                <div class="triangle-up"></div>
+            </div>
+        </div>
+        <!-- inform -->
+        <div class="msgBox">
+            <!--<div class="timed"><span>2017-09-25  14:32</span></div>-->
+            <div class="msgListBox">
+                <ul>
+                    {volist name="chat_log" id="vo"}
+                    {if $user && $vo['user_id'] == $user['id']}
+                    <li class="clearfix msgList" id="{$vo.msg_id}">
+                        <div class="clearfix fr msg msgRight">
+                            <div class="msgContent fr">
+                                <div class="name text-r"> {$vo.nickname}</div>
+                                <div class="chatSay">{$vo.content}</div>
+                                <span style="display: none" class="userId"> {$vo.user_id}</span>
+                            </div>
+                            <div class="msgHead fr"><img src="{$vo.avatar}" title="{$vo.nickname}"></div>
+                        </div>
+                    </li>
+                    {else/}
+                    <li class="clearfix msgList" id="{$vo.msg_id}">
+                        <div class="clearfix fl msg msgLeft">
+                            <div class="msgHead fl"><img src="{$vo.avatar}" title="{$vo.nickname}"></div>
+                            <div class="msgContent fl">
+                                <div class="name text-l"> {$vo.nickname}</div>
+                                <div class="chatSay"> {$vo.content}</div>
+                                <span style="display: none" class="userId"> {$vo.user_id}</span>
+                            </div>
+                        </div>
+                    </li>
+                    {/if}
+                    {/volist}
+
+                </ul>
+            </div>
+        </div>
+        <!-- inform -->
+
+        <!-- from -->
+        <div class="formCon">
+            <form action="" class="form" id="uploadForm">
+                <div class="smile"></div>
+                <!-- expression -->
+                <div class="expression" id="expressions">
+                    <table class="expr-tab">
+                        <tbody>
+                        <tr>
+                            <td width="28"><img src="__ROOM__/mobile/images/chatroom/qq/1.gif" alt="微笑/wx" title="微笑/wx"
+                                                width="28" height="28"></td>
+                            <td width="28"><img src="__ROOM__/mobile/images/chatroom/qq/2.gif" alt="撇嘴/pz" title="撇嘴/pz"
+                                                width="28" height="28"></td>
+                            <td width="28"><img src="__ROOM__/mobile/images/chatroom/qq/3.gif" alt="色/se" title="色/se"
+                                                width="28" height="28"></td>
+                            <td width="28"><img src="__ROOM__/mobile/images/chatroom/qq/4.gif" alt="发呆/fd" title="发呆/fd"
+                                                width="28" height="28"></td>
+                            <td width="28"><img src="__ROOM__/mobile/images/chatroom/qq/5.gif" alt="得意/dy" title="得意/dy"
+                                                width="28" height="28"></td>
+                            <td width="28"><img src="__ROOM__/mobile/images/chatroom/qq/6.gif" alt="流泪/ll" title="流泪/ll"
+                                                width="28" height="28"></td>
+                            <td width="28"><img src="__ROOM__/mobile/images/chatroom/qq/7.gif" alt="害羞/hx" title="害羞/hx"
+                                                width="28" height="28"></td>
+                            <td width="28"><img src="__ROOM__/mobile/images/chatroom/qq/8.gif" alt="闭嘴/bz" title="闭嘴/bz"
+                                                width="28" height="28"></td>
+                            <td width="28"><img src="__ROOM__/mobile/images/chatroom/qq/9.gif" alt="睡/shui"
+                                                title="睡/shui" width="28" height="28"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/10.gif" alt="大哭/dk" title="大哭/dk"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/11.gif" alt="尴尬/gg" title="尴尬/gg"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/12.gif" alt="发怒/fn" title="发怒/fn"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/13.gif" alt="调皮/tp" title="调皮/tp"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/14.gif" alt="呲牙/cy" title="呲牙/cy"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/15.gif" alt="惊讶/jy" title="惊讶/j" width="28"
+                                     height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/16.gif" alt="难过/ng" title="难过/ng"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/17.gif" alt="酷/kuk" title="酷/kuk"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/18.gif" alt="冷汗/lengh" title="冷汗/lengh"
+                                     width="28" height="28"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/19.gif" alt="抓狂/zk" title="抓狂/zk"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/20.gif" alt="吐/tuu" title="吐/tuu"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/21.gif" alt="偷笑/tx" title="偷笑/tx"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/22.gif" alt="可爱/ka" title="可爱/ka"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/23.gif" alt="白眼/baiy" title="白眼/baiy"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/24.gif" alt="傲慢/am" title="傲慢/am"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/25.gif" alt="饥饿/jie" title="饥饿/jie"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/26.gif" alt="困/kun" title="困/kun"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/27.gif" alt="惊恐/jk" title="惊恐/jk"
+                                     width="28" height="28"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/28.gif" alt="流汗/lh" title="流汗/lh"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/29.gif" alt="憨笑/hanx" title="憨笑/hanx"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/30.gif" alt="大兵/db" title="大兵/db"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/31.gif" alt="奋斗/dendou" title="奋斗/dendou"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/32.gif" alt="咒骂/zhm" title="咒骂/zhm"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/33.gif" alt="疑问/yiw" title="疑问/yiw"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/34.gif" alt="嘘.../xu" title="嘘.../xu"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/35.gif" alt="晕/yun" title="晕/yun"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/36.gif" alt="折磨/zhem" title="折磨/zhem"
+                                     width="28" height="28"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/37.gif" alt="衰/shuai" title="衰/shuai"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/38.gif" alt="骷髅/kl" title="骷髅/kl"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/39.gif" alt="敲打/qiao" title="敲打/qiao"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/40.gif" alt="再见/zj" title="再见/zj"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/41.gif" alt="擦汗/ch" title="擦汗/ch"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/42.gif" alt="抠鼻/kb" title="抠鼻/kb"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/43.gif" alt="鼓掌/gz" title="鼓掌/gz"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/44.gif" alt="糗大了/qd" title="糗大了/qd"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/45.gif" alt="坏笑/huaix" title="坏笑/huaix"
+                                     width="28" height="28"></td>
+                        </tr>
+                        <tr>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/46.gif" alt="左哼哼/zhh" title="左哼哼/zhh"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/47.gif" alt="右哼哼/yhh" title="右哼哼/yhh"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/48.gif" alt="哈欠/hq" title="哈欠/hq"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/49.gif" alt="鄙视/bs" title="鄙视/bs"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/50.gif" alt="委屈/wq" title="委屈/wq"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/51.gif" alt="快哭了/kk" title="快哭了/kk"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/52.gif" alt="阴险/yx" title="阴险/yx"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/53.gif" alt="亲亲/qq" title="亲亲/qq"
+                                     width="28" height="28"></td>
+                            <td><img src="__ROOM__/mobile/images/chatroom/qq/54.gif" alt="吓/xia" title="吓/xia"
+                                     width="28" height="28"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="messageEditor" id="messageEditor" contenteditable="true"></div>
+                <input class="submit" type="button" id="sendBtn" value="发送">
+                <div class="moreFun">
+                    <div class="moreFunCon">
+                        <!--<a href="javascript:;" class="shareBtn"><img src="__ROOM__/mobile/images/chatroom/share-icon.png"></a>-->
+                        <a href="javascript:;"><img src="__ROOM__/mobile/images/chatroom/img-icon.png">
+                            <input type="file" class="file" id="file_upload" name="file_upload" accept="image/*"></a>
+                        <!--<a href="javascript:;"><img src="__ROOM__/mobile/images/chatroom/hb-icon.png"></a>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- from -->
+    </div>
+</div>
+
+<!-- 进入直播间 -->
+<div class="comein" style="bottom: 186px; display:block; position: absolute; left:0; z-index:9999;"></div>
+<!-- 进入直播间 -->
+
+<!-- 有人@你 -->
+<a href="javascript:;" class="aiTe" title="有人@你：点击查看消息" >有人@你：点击查看消息<i class="laba"></i></a>
+<!-- 有人@你 -->
+
+<!-- 分享 -->
+<div class="sharedWrap"></div>
+<div class="shareCon">
+    <!-- <ul>
+        <li><a href="javascript:;"><i class="qqFx"></i><span>分享到QQ空间</span></a></li>
+        <li><a href="javascript:;"><i class="xlFx"></i><span>分享到新浪微博</span></a></li>
+        <li><a href="javascript:;"><i class="wxFx"></i><span>分享到朋友圈</span></a></li>
+        <li><a href="javascript:;" class="sharedClose"><span>取消</span></a></li>
+    </ul> -->
+</div>
+<!-- 分享 -->
+<script type="text/javascript">
+    var backimg = "{$backimg}";
+    var userInfo = JSON.parse('{:json_encode($user)}');
+    var visitor = "{$visitor}";
+    var room_id = "{$room_id}";
+    var mqttOpt = JSON.parse('{:json_encode($mqtt)}');
+    var ssoParams = JSON.parse('{:json_encode($sso_params)}');
+    var is_sign = {$is_sign};
+</script>
+<script type="text/javascript" src="__ROOM__/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="__ROOM__/layer/mobile/layer.js"></script>
+
+<script type="text/javascript" src="__ROOM__/js/cookie.js"></script>
+<script type="text/javascript" src="__ROOM__/mobile/js/init.m.js"></script>
+<script type="text/javascript" src="__ROOM__/mobile/js/mqtt.js"></script>
+<script type="text/javascript" src="__ROOM__/js/paho-mqtt.js"></script>
+<script type="text/javascript" src="__ROOM__/css/myScroll/jquery.mCustomScrollbar.concat.min.js"></script>
+</body>
+</html>

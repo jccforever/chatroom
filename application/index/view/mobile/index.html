@@ -1,0 +1,191 @@
+{extend name="mobile:mobile" /}
+{block}{$header}{/block}
+{block name="wrap"}
+
+<div class="wrap">
+    <div class="main">
+        <div id="header">
+            <header class="header lotBoxNo">
+                <a href="http://1399p.com/" class="returnBtn fl IndexReturnBtn"><span class="lotType fs30 text-fff"><em>{$curRoom.name}</em></span></a>
+                <h1 class="hdCenter"><span class="periodsFs"></span></h1>
+                <a href="javascript:;" class="videoShow liveBtn liveBtn01" type='on'>看视频</a>
+                <span {if cookie('live_status') neq 'on'}style="display: none;"{/if} class="liveBtn liveBtn02" type="off">收起视频</span>
+            </header>
+
+            <section class="video-container" style="display: none;">
+              <div class="video-box">
+                <div class="video-wrap" id="view-wrap-container">
+                  <div class="video-win" id="video-win"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- new result -->
+            <div class="resultCon clearfix">
+                <div class="newResult clearfix">
+                    <div class="clearfix resultTop fl"><span class="fl"></span><!-- <span style="margin-left: 30px;" class="fr">距下期<em></em></span> --></div>
+                    <div class="fl resultBottom numSpan text-fff" style="margin-left: 20px;"></div>
+                </div>
+                <!-- tab nav -->
+                <div class="chatNav">
+                    <i class="chatroom active"><img src="__ROOM__/images/mChatRoom/menu-down.png" alt="" /></i>
+                    <i class="lottery"><img src="__ROOM__/images/mChatRoom/menu-up.png" alt="" /></i>
+                </div>
+                <!-- tab nav -->
+            </div>
+            <!-- new result -->
+        </div>
+
+        <div class="msgBox" style="overflow-y: auto; display: block;">
+            {notempty name="chat_log.chat_log"}
+            <div class="view-more-records"><a href="javascript:;" class="more-message">查看更多消息</a></div>
+            {/notempty}
+            <div class="msgListBox">
+                <ul>
+                    {volist name="chat_log.chat_log" id="vo"}
+                        {if $user && $vo['user_id'] == $user['id']}
+                        <li class="clearfix msgList" id="{$vo.msg_id}">
+                            <div class="clearfix fr msg msgRight">
+                                <div class="msgContent fr">
+                                    <div class="name text-r"> <span class="timed">{$vo.chat_time|date="m-d H:i",###}</span> {$vo.nickname} </div>
+                                    <div class="chatSay">{$vo.content}</div>
+                                    <span style="display: none" class="userId"> {$vo.user_id}</span>
+                                </div>
+                                <div class="msgHead fr"><img src="{$vo.avatar}" title="{$vo.nickname}"></div>
+                            </div>
+                        </li>
+                    {else/}
+                        <li class="clearfix msgList" id="{$vo.msg_id}" {if $vo.is_hidden == 1}style="display: none"{/if}>
+                            <div class="clearfix fl msg msgLeft">
+                                <div class="msgHead fl" userId="{$vo.user_id}" isgag="{$vo.isgag}" group="{$vo.group_id}" follow="{$vo.is_follow}"><img src="{$vo.avatar}" title="{$vo.nickname}"></div>
+                                <div class="msgContent fl">
+                                    <div class="name text-l"> {$vo.nickname} <span class="timed">{$vo.chat_time|date="m-d H:i",###}</span></div>
+                                    <div class="chatSay"> {$vo.content}</div>
+                                    <span style="display: none" class="userId"> {$vo.user_id}</span>
+                                </div>
+                            </div>
+                        </li>
+                        {/if}
+                    {/volist}
+                    {notempty name="chat_log.chat_log"}
+                    <li class="history-hr-wrap"><div class="history-hr-text">以上是历史消息</div></li>
+                    {/notempty}
+                </ul>
+            </div>
+        </div>
+        <!-- inform -->
+        
+        <!-- from -->
+        <div class="formCon">
+            <form action="" class="form">
+                {if $user}
+                    <textarea class="messageEditor" id="messageEditor" contenteditable="true" placeholder="请输入文字" name=""></textarea>
+                    <input class="submit" type="button" value="发送">
+                {else/}
+                    <a href="javascript:;" class="inputLogin">迫不及待要发言？请先登录~</a>
+                {/if}
+                <div class="moreFun">
+                    <div class="moreFunCon">
+                        {if $user}
+                            {in name="curRoom.code" value="$Think.cookie.toUser"}
+                                <a href="javascript:;" class="toUser" type='all'>查看全部</a>
+                            {else/}
+                                <a href="javascript:;" class="toUser" type='follow'>只看关注</a>
+                            {/in}
+                            <a href="javascript:;" class="openOnlineList">在线用户</a>
+                            <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=2&uin={$qq[0]['qq']}" class="feedback2" target="_blank">在线反馈</a>
+                            <!--<a href="{$qq[0]['link']}" class="feedback2" target="_blank">在线反馈</a>-->
+                            <!-- <a href="javascript:;" class="changeBgBtn">更换背景</a> -->
+                            <a href="javascript:;" class="closeUser">退出</a>
+                        {else/}
+                            <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=2&uin={$qq[0]['qq']}" class="feedback2" target="_blank">在线反馈</a>
+                            <!--<a href="{$qq[0]['link']}" class="feedback2" target="_blank">在线反馈</a>-->
+                        {/if}
+                        <!-- <a href="javascript:;" class="shareBtn">我要分享</a> -->
+                        <!--<a href="javascript:;">发照片 <input type="file" class="file" id="file_upload" name="file_upload" accept="image/*"></a>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- from -->
+
+        <!-- 开奖号码 -->
+        <div class="lotCon" style="z-index:999;display: none;">
+            <div class="lotTitle">
+                <table class="table table-bordered" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr bgcolor="#f2f2f2" class="fs26">
+                            <th width="20%">期数</th>
+                            <th width="20%">时间</th>
+                            <th width="60%" class="tabSpan">
+                                {if $curRoom['code'] != 'pk10' && $curRoom['code'] != 'xyft'}
+                                开奖号码
+                                {else /}
+                                <span class="on">号码</span>
+                                <span>大小</span>
+                                <span>单双</span>
+                                <span>对子</span>
+                                {/if}
+                            </th>
+                        </tr>
+                    </thead >
+                </table>
+            </div>
+            <div class="lotList">
+                <table class="table table-bordered" cellpadding="0" cellspacing="0">
+                    <tbody id="lotHistory">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 开奖号码 -->
+    </div>
+
+    <div class="main" style="background: rgba(255,255,255,1);z-index:999;display: none;">
+        <header class="header" style=" background: #f02f22;">
+            <a href="javascript:;" class="returnBtn fl"></a>
+            <h1 class="hdCenter">
+                <div class="aliveCon">
+                    <a href="javascript:;" class="alive">在线用户</a>
+                </div>
+            </h1>
+        </header>
+        <div class="tabItem clearfix">
+            <a href="javascript:;" class="on"><span>在线用户</span></a>
+            <a href="javascript:;"><span>关注的人</span></a>
+        </div>
+        <ul class="onlineList onlineUser"></ul>
+        <ul class="onlineList followUser" style="display: none;">
+        </ul>
+    </div>
+</div>
+
+<!-- 进入直播间 -->
+<div class="comein" style="bottom: 186px; display:block; position: absolute; left:0; z-index:9999;"></div>
+
+<div class="aiTeBox">
+    <!-- 有人@你 -->
+    <a href="javascript:;" class="aiTe" title="有人@你：点击查看消息">有人@你：点击查看消息<i class="laba"></i></a>
+    <!-- more information -->
+    <a href="javascript:;" class="moreInfor" title="点击查看最新消息"><i><img src="__ROOM__/images/mChatRoom/more-infor.png" alt="" /></i><span class="newMsg"></span></a>
+</div>
+
+<!-- 分享 -->
+<div class="sharedWrap"></div>
+<div class="shareCon"></div>
+<div class="pressCon"></div>
+<!-- 分享 -->
+<!-- background-image -->
+<div class="changeBgBox">
+    <div class="text-666 bg-def title">更换聊天背景 <span class="closeBgBtn"></span></div>
+    <ul class="bgList clearfix">
+
+    </ul>
+</div>
+
+<iframe style="display: none;" id="qrcode-iframe" name="submitIframe" src="about:blank" frameborder="no" border="0" marginwidth="0" marginheight="0"></iframe>
+<script>
+    var kfqq = "{$qq[0]['qq']}";
+</script>
+{/block}
+{block}{$footer}{/block}

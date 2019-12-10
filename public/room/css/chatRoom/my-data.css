@@ -1,0 +1,33 @@
+/**
+ * chat-room of css
+ *
+ * @author Chensiren <245017279@qq.com>
+ * 
+ * @since  2017-09-26
+ **/
+ 
+.boxShadow{box-shadow: 0 0 10px rgba(0,0,0,0.5); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#50000000,endColorstr=#50000000)";filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#50ffffff, endColorstr=#50ffffff);}
+.bdRaduis{ border-radius: 4px;}
+.main{ width: 370px; margin: 0 auto; box-shadow: }
+.layerInfor{ width: 370px; overflow: hidden;  background: #ffffff;}
+.layerHead{ height: 114px; background: #465268 url(../../images/chatRoom/layer-head-bg.png) no-repeat 0 center; text-align: center; color: #fff; padding-top: 12px; position: relative;}
+.layerHead .layerFace{ width: 64px; height: 64px; border-radius: 50%; overflow: hidden; margin: 0 auto;  margin-bottom: 10px;}
+.layerHead .layerName{ display: inline-block;}
+.layerHead .layerName .faceName{ margin-right: 10px;}
+.fileImgBtn{ width: 46px; height: 46px; background: url(../../images/chatRoom/file-btn.png) no-repeat 0 0; position: absolute; left: 50%; top: 45px;}
+
+.tabNav li{ width: 50%; text-align: center; padding: 20px 0;}
+.tabNav li a{ font-size: 16px; color: #999999; padding-bottom: 5px;}
+.tabNav li a:hover{ border-bottom: 2px solid #48516b; color: #48516b;}
+.tabNav li.on a{ border-bottom: 2px solid #48516b; color: #48516b;}
+
+.layerBody .inforLi{ padding-left: 70px; margin-bottom: 15px;}
+.layerBody .inforLi span{ width: 70px; line-height: 26px; text-align: right; color: #464f68;}
+.layerBody .inforLi em{ color: #666666; line-height: 26px;}
+.layerBody .inforLi .inputEm input{ width: 160px; height: 26px; border-radius: 26px; border: 1px solid #d6d6d6; padding: 0 10px; outline: none; background: #ebebeb;}
+.layerBody .inforLi .jfBtn{ height: 26px; line-height: 26px; margin-left: 15px; padding: 0 10px; border-radius: 26px; border: 1px solid #eb7f7f; color: #eb7f7f;}
+.layerBody .inforLi .jfBtn:hover{ background: #eb7f7f; color: #fff;}
+.layerFooter{ width: 100%; height: 70px; text-align: center; background: url(../../images/chatRoom/login-bg.png) no-repeat; background-position: -1px -81px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; z-index: 1;}
+.layerFooter .btn{ width: 100px; text-align: center; margin: 0 15px;}
+.layerFooter .btn-blue{ background: #48516b; border-color: #48516b;}
+.layerInfor.animate{ display: block; opacity:1;-webkit-animation:fadeInLeft 1s ease both; -moz-animation:fadeInLeft 1s ease both; -ms-animation:fadeInLeft 1s ease both; animation:fadeInLeft 1s ease both;}

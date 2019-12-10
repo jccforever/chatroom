@@ -1,0 +1,7 @@
+/runtime
+/public/uploads
+/application/extra/site.php
+*.log
+*.css.map
+*.gitkeep
+.env

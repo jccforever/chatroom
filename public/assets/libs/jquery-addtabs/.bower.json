@@ -1,0 +1,13 @@
+{
+  "name": "jquery-addtabs",
+  "homepage": "https://github.com/karsonzhang/jquery-addtabs",
+  "_release": "6995983126",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "69959831261e07e400ae0e2b7f5f016dcaf9eb78"
+  },
+  "_source": "https://github.com/karsonzhang/jquery-addtabs.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/karsonzhang/jquery-addtabs.git"
+}

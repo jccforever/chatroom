@@ -1,0 +1,161 @@
+.fm-container {
+    background-color: #f1f4f6;
+}
+
+.fm-container .fm-wrapper {
+}
+
+.fm-container .fm-header {
+    background:#e8edf0;
+    min-height:40px;
+}
+.fm-container .fm-header .breadcrumbs {
+    font-size:.7em;
+    font-weight:normal;
+    margin-top:5px;
+        padding: 0.3em 0 0 1em;
+}
+.fm-container .fm-header .breadcrumbs .nav-item.root {
+    width:16px;height:16px;background-size:16px;
+}
+.fm-container .fm-header .buttons-panel {
+    margin-top:5px;
+    margin-bottom:0;
+}
+
+.fm-container .fm-splitter .splitter-bar-vertical {
+    width: 10px;
+}
+
+.fm-container .fm-filetree {
+    border: none;
+    background-color: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.fm-container .fm-fileinfo {
+    border: none;
+    background-color: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.fm-container .fm-preview .fm-preview-title h1 {
+    color: #444;
+}
+
+.fm-container .fm-preview .fm-preview-details td {
+    color: #333;
+    border-bottom: 1px dotted #efefef;
+}
+
+.fm-container .button-group .btn {
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #fff;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+.fm-container .button-group .btn.disabled {
+    border-color:#c5c5c5
+}
+
+.fm-container .button-group .separator {
+    padding: 3px 1px;
+    background-color: #E8E8E8;
+}
+
+.fm-container .fm-header .button-group .btn {
+    padding: 5px 3px;
+}
+
+.fm-container .fm-header .button-group select.btn {
+    padding: 4px 2px;
+}
+
+.fm-container .button-group .btn:not(.disabled):hover {
+    background-color: #C3D2F7;
+}
+
+.fm-container #filepath {
+    -webkit-border-top-left-radius: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -moz-border-radius-topleft: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+
+.fm-container #folder-info {
+    color: #bbb;
+}
+
+.fm-container #summary {
+    background: url(../images/summary.png) no-repeat center center;
+}
+
+.fm-container #link-to-project {
+    background: transparent url(../images/fmlogo.png) no-repeat 0 0;
+    margin:1em 0 0 1em;
+}
+
+.fm-container .search-box input {
+    background-color: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.fm-container .search-box input:focus {
+    background-color: #C6C6C6;
+}
+
+.fm-container .view-items .grid li {
+    width: 196px;
+    -webkit-transition: background 0.3s linear;
+    -moz-transition: background 0.3s linear;
+    -o-transition: background 0.3s linear;
+    transition: background 0.3s linear;
+}
+
+.fm-container .view-items .grid li.drop-hover,
+.fm-container .view-items .list tr.drop-hover {
+    background-color: #bbbbbb;
+}
+
+.fm-container .view-items .list td {
+    border-bottom: 1px dotted #efefef;
+}
+
+.fm-popup.alertify .fm-fileupload-container #total-progress {
+    background-color: #A1ADE2;
+}
+
+.fm-popup.alertify .fm-fileupload-container #total-progress .progress-bar {
+    background-color: #333;
+}
+
+.fm-container .drag-helper-grid {
+    width: 196px;
+    -webkit-transition: background 0.3s linear;
+    -moz-transition: background 0.3s linear;
+    -o-transition: background 0.3s linear;
+    transition: background 0.3s linear;
+}
+
+.fm-container .view-items .ui-selecting {
+    background-color: #cfe2ff;
+}
+.fm-container .view-items .ui-selected {
+    background-color:#cfe2ff;
+}
+.fm-container .fm-fileinfo .fm-renderer-container {
+    width:100%;
+}
+.fm-container .fm-preview .fm-preview-edit-panel, .fm-container .fm-preview .fm-preview-view-panel .fm-js-viewer {
+    width:100%;
+}

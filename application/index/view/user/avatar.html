@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">   
+    <title>彩票聊天室</title>
+    <meta name="keywords" content="竞彩聊天室、足球聊天室、篮球聊天室、彩票聊天室"/>
+    <meta name="description" content="聊天室"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible"content="IE=Edge,chrome=1">
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <link rel="stylesheet" href="__ROOM__/css/bootstrap.css">
+    <link rel="stylesheet" href="__ROOM__/css/reset.css">
+    <link rel="stylesheet" href="__ROOM__/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="__ROOM__/css/chatRoom/avatar.css">
+</head>
+
+<body>
+	
+    <div class="container">
+    
+      <div class="imageBox">
+    
+        <div class="thumbBox"></div>
+    
+        <div class="spinner" style="display: none">Loading...</div>
+    
+      </div>
+    
+      <div class="action clearfix"> 
+    
+        <!-- <input type="file" id="file" style=" width: 200px">-->
+    
+        <div class="new-contentarea tc">
+            <a href="javascript:void(0)" class="upload-img">
+            
+                <label for="upload-file">选择头像</label>
+            
+            </a>
+    
+            <input style="cursor: pointer;" type="file" class="" name="upload-file" id="upload-file" />
+    
+        </div>
+    
+        <input type="button" id="btnCrop"  class="Btnsty_peyton" value="上传">
+    
+        <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+"  >
+    
+        <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-" >
+    
+      </div>
+    
+      <!-- <div class="cropped"></div> -->
+    
+    </div>
+    <script type="text/javascript" src="__ROOM__/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="__ROOM__/layer/layer.js"></script>
+    <script type="text/javascript" src="__ROOM__/js/thumb/cropbox.js"></script>
+    <script type="text/javascript">
+    var userInfo = JSON.parse('{:json_encode($user)}');
+	$(function(){
+		if (self != top) { 
+		　　//在iframe中;
+			var height = $(".container").height()+30;
+			parent.$('.layui-layer-iframe,.layui-layer-iframe iframe').height(height);
+		}
+	});
+    
+    $(window).load(function() {
+        var imgSrc = userInfo.avatar != '' ? userInfo.avatar : '/room/images/avatar.png';
+        var options = {
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: imgSrc
+        }
+    
+        var cropper = $('.imageBox').cropbox(options);
+        var img="";
+
+        $('#upload-file').on('change', function(){
+
+            var file_size = this.files[0].size;
+            var size = file_size / 1024;
+            if (size > 1024) {
+                num02 = size.toFixed(2);
+                //提示处理
+                var msg = "图片文件大小超过限制。请上传小于1M的文件，当前文件大小为"+num02+"KB";
+                layer.msg(msg,{shift: 6});
+                return false;
+            }
+            var filepath=this.files[0].name;
+            var extStart=filepath.lastIndexOf(".");
+            var ext=filepath.substring(extStart,filepath.length).toUpperCase();
+            if(ext!=".BMP"&&ext!=".PNG"&&ext!=".GIF"&&ext!=".JPG"&&ext!=".JPEG"){
+                //图片限制
+                var msg = "图片限于bmp,png,gif,jpeg,jpg格式";
+                layer.msg(msg,{shift: 6});
+                return false;
+            }
+    
+            var reader = new FileReader();
+    
+            reader.onload = function(e) {
+    
+                options.imgSrc = e.target.result;
+    
+                cropper = $('.imageBox').cropbox(options);
+    
+            }
+    
+            reader.readAsDataURL(this.files[0]);
+    
+            //this.files = [];
+    
+        })
+    
+        $('#btnCrop').on('click', function(){
+            
+            img = cropper.getDataURL(3);
+            
+            $.ajax({
+                type: "POST",
+                url: "/user/avatar.html",
+                data: {'img':img},
+                dataType: "json",
+                beforeSend:function(){
+                    $("#btnCrop").attr('disabled','disabled').val("上传中...");
+                },
+                success: function(data){
+                    if(data.status == 1){
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭   
+                        layer.msg(data.data,{shift: 6});
+                        window.parent.location.reload();
+                        // $('.userList[userId="' + userInfo.id + '"]',window.parent.document).find('.headFace img').attr('src',data.src);
+                        // $('.userLink .userFace img',window.parent.document).attr('src',data.src);
+                        // window.parent.userInfo.avatar = data.src;
+                        // window.location.href='/user/index';
+                    }else{
+                        layer.msg(data.data,{shift: 6});
+                    }
+                },
+                complete:function(){
+                    $("#btnCrop").removeAttr('disabled').val("上传");
+                },
+            });
+
+            // $('.cropped').html('');
+    
+            // $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:64px;margin-top:4px;border-radius:64px;box-shadow:0px 0px 12px #7E7E7E;" ><p>64px*64px</p>');
+    
+            // $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:128px;margin-top:4px;border-radius:128px;box-shadow:0px 0px 12px #7E7E7E;"><p>128px*128px</p>');
+    
+            // $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:180px;margin-top:4px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>180px*180px</p>');
+    
+        })
+    
+        $('#btnZoomIn').on('click', function(){
+            cropper.zoomIn();
+        })
+    
+        $('#btnZoomOut').on('click', function(){
+            cropper.zoomOut();
+        })
+    });
+    </script>
+
+</body>
+
+</html>
